@@ -1,0 +1,245 @@
+---
+title: "Classwork Biggish Data"
+format: html
+editor: visual
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo       = TRUE, 
+                      fig.height = 3, 
+                      fig.width  = 6,
+                      fig.align  = "center")
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+```{r, include=FALSE}
+library(tidyverse)
+```
+
+## Thanks to Dr. James Disckens.
+### Instructions: Generate Rmarkdown file and a Word file that shows all required code and output.
+
+```{r, message = FALSE}
+library(tidyverse)    
+library(dplyr)  
+library(data.table)
+```
+
+
+
+  1. Use and show data.table code to select the variables year, month, day, and hour from the imported flights data.\
+  - Load the file.\
+  - Check its class.\ 
+  - How many rows or columns it has?\
+```{r, message = FALSE}
+flights <- fread("nycdata.csv") 
+```
+
+```{r, eval=FALSE}
+class(flights)
+```
+
+```{r, eval=FALSE}
+glimpse(flights)
+```
+ 
+```{r, eval=FALSE}
+names(flights)
+```
+
+```{r,eval=FALSE}
+unique(flights$dest)
+```
+
+```{r,eval=FALSE}
+unique(flights$origin)
+```
+- Select columns year, month, day, and hour 
+ 
+```{r}
+flights[,c("year", "month", "day", "hour")]
+# Note there is no dot before c()
+```
+
+The (,) after [ means to use the entire rows. 
+or
+
+```{r,eval=FALSE}
+flights[,.(year, month, day, hour)]
+# There is a dot before (
+```
+or
+
+```{r}
+flights[,year:day]
+```
+- **For practice:  by tidyverse**
+ 
+```{r}
+# Read the file by tidyverse use read_scv()
+df1 <- read_csv("nycdata.csv")
+```
+
+ - Note we may get the following message
+```{block}
+Use `spec()` to retrieve the full column specification for this data.
+ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+```
+- There are three types of message.\
+  - Errors: If the message is reporting an error we must fix it.\
+  - Warnings: You can ignore it, but eventually you must fix it. You may search on line how to fix that particular warning.\
+  - Notes: Minor problems that you may or may not fix it. But it is better to fix. It is better to fix.
+ 
+```{r}
+glimpse(df1)
+```
+ 
+
+```{r}
+df1 %>%
+  select(year,month,day, hour)
+```
+ 
+  
+
+  2. Use and show data. table code to produce a table that shows a carrier of DL, an origin of JFK and a destination of SEA
+  
+```{r}
+flights[c(origin == "JFK"& carrier == "DL"& dest == "SEA")]
+```
+
+
+```{r}
+flights[origin == "JFK"& carrier == "DL"& dest == "SEA"]
+```
+
+  3. Use and show data.table code to produce a table that shows a carrier of UA, a month of March, and an airtime that is below 330.
+  
+```{r}
+unique(flights$month)
+```
+  
+  
+```{r}
+flights[carrier== "UA" & month == 3 & air_time < 330]
+```
+ 
+```{r}
+flights[carrier== "UA" & month == 3 & air_time < 330, .(carrier, month, air_time)]
+```
+```{r}
+flights2 %>%
+  filter(carrier== "UA" , month == 3 & air_time < 330) %>%
+  select(carrier, month , air_time)
+```
+  
+
+  4. Use and show tidyverse code to produce a table that shows a carrier of UA, a month of March, and an airtime that is below 330.
+```{r}
+flights1 <- read_csv("nycdata.csv") 
+glimpse(flights1)
+```
+
+```{r}
+class(flights1)
+```
+
+
+```{r}
+flights1 %>%
+  filter(carrier== "UA" & month == 3 & air_time < 330)
+```
+  
+```{r}
+flights1 %>%
+  filter(carrier== "UA" & month == 3 & air_time < 330) %>%
+  select(carrier, month, air_time)
+```
+  
+
+  5. Use the data.table method to add a variable called speed that is the average air speed of the plane in miles per hour. 
+
+```{r}
+names(flights)
+```
+
+```{r}
+glimpse(flights)
+```
+
+  
+```{r}
+flights[,c("speed") := (distance/hour)]
+flights
+```
+
+```{r}
+flights[,.(speed, distance, hour)]
+```
+
+
+or
+
+```{r}
+flights[,c("Speed") := (60*distance/air_time)]
+flights
+```
+
+
+
+
+```{r}
+flights[,.(Speed, distance, air_time)]
+```
+
+- Or by chaining
+
+```{r}
+flights[,c("Speed") := (60*distance/air_time)][,.(Speed, distance, air_time)]
+```
+
+
+  6. Use the tidyverse method to add a variable called speed that is the average air speed of the plane in miles per hour.
+  
+```{r}
+flights1 %>%
+  mutate(speed = (distance/hour))
+```
+
+```{r}
+flights1 %>%
+  mutate(speed = (distance/hour)) %>%
+  select(speed, distance, hour)
+```
+  7. Show and use coding to change the carrier abbreviation of UA to UniitedAir,\
+    7a. data.table method\
+
+
+```{r}
+unique(flights$carrier)
+```
+```{r}
+flights[carrier== "UA", carrier:= "UniitedAir" ]
+```
+
+```{r}
+unique(flights$carrier)
+```
+    7b. tidyverse method  (Use a sequence of dplyr commands so that you can see the change in your table)
+    
+```{r}
+unique(flights1$carrier)
+```
+
+```{r}
+flights1 %>%
+  mutate(carrier= recode(carrier,"UA" = "UniitedAir")) ->
+  flights1
+flights1
+```
+
+```{r}
+unique(flights1$carrier)
+```
+
