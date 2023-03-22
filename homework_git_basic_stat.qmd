@@ -1,0 +1,51 @@
+---
+title: "Basic Stat Lab"
+format: html
+editor: visual
+---
+
+```{r setup, include=FALSE}
+set.seed(1)
+knitr::opts_chunk$set(echo       = TRUE, 
+                      fig.height = 3.5, 
+                      fig.width  = 6,
+                      fig.align  = "center")
+ggplot2::theme_set(ggplot2::theme_bw())
+```
+
+# Basic Statistics Classwork/Lab
+
+  1) In Hong Kong, human male height is approximately normally distributed with mean 171.5 cm and standard deviation 5.5 cm. (Use and show R code to produce answers for a – e)  You can use any method for part f.\
+    a) What proportion of the Hong Kong population is between 170 cm and 180 cm?\
+    b) What proportion of the Hong Kong population is less that 165 cm ?\
+    c) What proportion of the Hong Kong population is greater than 175 ?\
+    d) The proportion .25 is less than what male height value ?\
+    e) The proportion .85 is greater than what male height value ?\
+    f)  The proportion of .68 is between what two male height values ?\
+    
+  2) Use and show R code to determine the height of the standard normal curve at a Z value of 2.5.
+
+  3) Use and show R code to determine the height of the standard normal curve at a Z value of .4.
+
+  4) Use and show R code to determine the height of a t distribution curve for a t value of 1.5 with 3 degrees of freedom.
+
+  5) Use and show R code to determine the height of a t distribution curve for a t value of -2 with 2 degrees of freedom.
+
+  6) For a t distribution with 3 degrees of freedom, use and show R code that will find the proportion less than 2.5.
+
+  7) For a t distribution with 1 degree of freedom, use and show R code that will find the proportion that is greater than 1.75.
+
+  8) For a t distribution with 2 degrees of freedom, use and show R code that will find the value immediately above a proportion of .355. 
+
+
+  9) An educator believes that new directed reading activities in the classroom will help elementary school pupils improve some aspects of their ability.  She arranges for a third -grade class of 23 students to take part in these activities for an eight-week period. A control classroom of 23 third graders follows the same curriculum without the activities. At the end of the eight weeks, all students are given a Degree of Reading Power (DRP) test, which measures the aspects of reading ability that the treatment is designed to improve. The sample data performance results are provided below;
+
+- Treatment Group:
+24,61,59,46,43,44,52,43,58,67,62,57,71,49,54,43,53,57,49,56,33,74,70
+- Control Group:
+42,33,46,37,43,41,10,42,55,19,17,55,26,54,60,28,62,20,53,48,37,85,42
+
+- Design and execute a two sample t test.  
+	  a) State the appropriate null and alternative hypotheses.
+  	b) Use and show R code to produce the p value and the confidence interval
+	  c) Determine if you should reject or fail to reject the null hypothesis using 	the p value and the confidence interval.
